@@ -44,7 +44,7 @@ function loadData() {
     var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + city + '&format=json&callback=wikiCallback';
 
     //this var is used for wikipedia errors, and will change the text in the wikielem if it takes  longer than 8 seconds to respond
-    var wikiRequestTimeout = setTimeout(function){
+    var wikiRequestTimeout = setTimeout(function() {
       $wikiElem.text("failed to get wikipedia resources");
     }, 8000);
 
