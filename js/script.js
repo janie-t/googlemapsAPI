@@ -43,6 +43,11 @@ function loadData() {
     //this code will grab the relevant wikipedia articles
     var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + city + '&format=json&callback=wikiCallback';
 
+    //this var is used for wikipedia errors, and will change the text in the wikielem if it takes  longer than 8 seconds to respond
+    var wikiRequestTimeout = setTimeout(function){
+      $wikiElem.text("failed to get wikipedia resources");
+    }, 8000);
+
     $.ajax({
       url: wikiUrl,
       dataType: "jsonp",
@@ -55,6 +60,9 @@ function loadData() {
           var url = 'http://en.wikipedia.org/wiki/' + articleStr;
           $wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
         };
+
+        clearTimeout(wikiRequestTimeout); //this has to clear the timer otherwise it would by default replace the wiki text to the timeout var text as above.
+
       }
     });
 
